@@ -3,7 +3,13 @@
   ;; startup initial frame maximized
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
   (set-face-attribute 'default nil :height 240)
-  (global-display-line-numbers-mode 1))
+  (global-display-line-numbers-mode 1)
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+	backup-by-copying t
+	delete-old-versions t
+	kept-new-versions 6
+	kept-old-versions 2
+	version-control t))
 
 (use-package clojure-mode
   :ensure t)
