@@ -7,6 +7,7 @@
 (setq package-selected-packages '(cider
 				  clojure-mode
 				  corfu
+				  exec-path-from-shell
 				  flycheck
 				  flycheck-clj-kondo
 				  go-mode
@@ -45,6 +46,17 @@
 	version-control t)
   (make-directory "~/.emacs.d/autosaves/" t))
 
+(use-package dired
+  :defer t
+  :config
+  (when (and (eq system-type 'darwin) (executable-find "gls"))
+    (setq insert-directory-program "gls")))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package flycheck
   :ensure t
   :init
@@ -52,6 +64,11 @@
 
 (use-package flycheck-clj-kondo
   :ensure t)
+
+(use-package cider
+  :ensure t
+  :config
+  (setq cider-repl-display-help-banner nil))
 
 (use-package clojure-mode
   :ensure t
@@ -61,12 +78,8 @@
 ;; (use-package clojure-ts-mode
 ;;   :ensure t
 ;;   :config
-;;   (require 'flycheck-clj-kondo))
-
-(use-package cider
-  :ensure t
-  :config
-  (setq cider-repl-display-help-banner nil))
+;;   (require 'flycheck-clj-kondo)
+;;   (add-hook 'clojure-ts-mode-hook #'cider-mode))
 
 (use-package corfu
   :ensure t
@@ -85,11 +98,6 @@
 (use-package yaml-mode
   :ensure t
   :mode ("\\.yaml\\'" "\\.yml\\'"))
-
-;; (use-package eglot
-;;   :hook
-;;   (clojure-mode . eglot-ensure)
-;;   (go-mode . eglot-ensure))
 
 (use-package magit
   :ensure t)
