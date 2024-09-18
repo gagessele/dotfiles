@@ -33,6 +33,10 @@
   ;; `completion-at-point' is often bound to M-TAB.
   (tab-always-indent 'complete)
   :init
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-region '(bg-only no-extend))
   ;; startup initial frame maximized
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
   (set-face-attribute 'default nil :height 180)
@@ -44,7 +48,11 @@
 	kept-new-versions 6
 	kept-old-versions 2
 	version-control t)
-  (make-directory "~/.emacs.d/autosaves/" t))
+  (make-directory "~/.emacs.d/autosaves/" t)
+  :config
+  ;; Load theme of your choice
+  (load-theme 'modus-operandi t)
+  :bind ("<f5>" . modus-themes-toggle))
 
 (use-package dired
   :defer t
